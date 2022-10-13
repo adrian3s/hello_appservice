@@ -1,0 +1,22 @@
+name: DeployLabIgnite2022
+
+#Manejo manual
+on: workflow_dispatch
+
+env:
+  AZURE-REGION: eastus2
+  RESOURCE-GROUP-NAME: ignite2022lab
+
+jobs:
+
+  create-azure-rg:
+    name: azure-ignite-2022
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - run: |
+        az webapp list --query "[?state=='Running']"
